@@ -27,4 +27,10 @@ public interface IUserService {
 	int pCheck(String phone) throws Exception;
 
 	int eCheck(String email) throws Exception;
+
+	int userDelete(UserDTO uDTO) throws Exception;
+
+
+
+	
 }

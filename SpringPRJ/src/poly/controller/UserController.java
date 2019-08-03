@@ -115,6 +115,11 @@ public class UserController {
 			 session.setAttribute("userSeq", uDTO.getUserSeq());
 			 session.setAttribute("userEmail", uDTO.getUserEmail());
 			 session.setAttribute("userName", uDTO.getUserName());
+			 session.setAttribute("userPhone", uDTO.getUserPhone());
+			 session.setAttribute("UserQuestion", uDTO.getUserQuestion());
+			 session.setAttribute("userAnswer", uDTO.getUserAnswer());
+			 session.setAttribute("userGender", uDTO.getUserGender());
+			 session.setAttribute("userBirth", uDTO.getUserBirth());
 			 
 			 log.info(" session : " + session);
 			 
@@ -142,9 +147,46 @@ public class UserController {
 		return count;
 	}
 	 @RequestMapping(value="/logout")
-	 public String logout(HttpSession session) throws Exception {
+	 public String logout(HttpSession session,Model model) throws Exception {
 		 session.invalidate();
-		 return "/index";
+		 
+		 String msg, url;
+				msg="로그아웃에 성공하였습니다.";
+				url="/index.do";
+				
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+		 
+		 return "redirect";
+	 }
+	 @RequestMapping(value="/userDelete")
+	 public String userDelete(Model model,HttpSession session) throws Exception {
+		 String userEmail=(String)session.getAttribute("userEmail");
+		 
+		 log.info(userEmail);
+		 
+		 UserDTO uDTO =new UserDTO();
+		 uDTO.setUserEmail(userEmail);
+		 
+		 int result=0;
+		 result=userservice.userDelete(uDTO);
+		 log.info(result);
+		 String msg, url;
+			if(result ==1) {
+				msg="회원탈퇴 성공";
+				url="/index.do";
+				session.invalidate();
+			}else {
+				msg="회원탈퇴 실패";
+				url="/mainA.do";
+			}
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/redirect";
+		 
+		
+		
 	 }
 	  @RequestMapping(value="/forgetEmail")
 	  public String forgetE (HttpServletRequest request, Model model) throws Exception {
@@ -259,6 +301,35 @@ public class UserController {
 		  
 		  return "redirect"; 
 	  }
+	  @RequestMapping(value="/mpaproc")
+	  public String mp1proc (HttpServletRequest request, Model model, HttpSession session) throws Exception{
+		  String userPassword=request.getParameter("userPassword");
+		  String userEmail=(String)session.getAttribute("userEmail");
+		  
+		  log.info("userPassword 확인: "+userPassword);
+		  log.info("userEmail 확인: "+userEmail);
+		  
+		  UserDTO uDTO=new UserDTO();
+		  uDTO.setUserPassword(userPassword);
+		  uDTO.setUserEmail(userEmail);
+		  
+		  uDTO = userservice.getUserInfo(uDTO);
+			 
+			 String msg,url;
+			 if(uDTO==null) {
+				 msg="비밀번호가 옳지 않습니다.";
+				 url="/mpa1.do";
+			 }else { 
+				 msg="회원정보 상세 페이지로 넘어갑니다.";
+				 url="/mpa2.do";
+				 
+			 }
+			 
+			 model.addAttribute("msg",msg);
+			 model.addAttribute("url",url);
+			 return "redirect";	
+	  }
+	  
 	  @RequestMapping(value="question", method=RequestMethod.GET)
 	  public String question (HttpServletRequest request, HttpServletResponse response, ModelMap
 	  model) throws Exception {
@@ -279,4 +350,12 @@ public class UserController {
 	  model) throws Exception {
 	  return "/mainA"; 
 	  }
+	  @RequestMapping(value="/mpa1")
+		public String mpa1() throws Exception{
+			return "/mypage/mpa1";
+		}
+	  @RequestMapping(value="/mpa2")
+		public String mpa2() throws Exception{
+			return "/mypage/mpa2";
+		}
 }

@@ -61,7 +61,7 @@
                   
                   
                   <div class="text-center">
-                    <a class="small" href="/index.do" onclick="logout();">로그아웃</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"style="margin-top: 2%;border-radius: 10rem;">로그아웃</a>                 
                   </div>
                 </div>
               </div>
@@ -75,6 +75,25 @@
 
   </div>
 
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <h5 class="modal-title" id="exampleModalLabel">로그아웃을 하시겠습니까?</h5>
+	          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+	            <span aria-hidden="true">×</span>
+	          </button>
+	        </div>
+	        <div class="modal-body">"로그아웃" 버튼을 누르셨습니다. 로그아웃을 하시려면 로그아웃 버튼을 눌러주세요.</div>
+	        <div class="modal-footer">
+	          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+	          <button class="btn btn-primary" type="button" onclick="location.href='/logout.do'">로그아웃</button>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -86,10 +105,5 @@
   <script src="js/sb-admin-2.min.js"></script>
 
 </body>
-<script>
-	function logout() {
-		alert("로그아웃 성공하였습니다.");
-		location.href="/logout.do"
-	}
-</script>
+
 </html>

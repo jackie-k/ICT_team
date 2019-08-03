@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String userName=(String)session.getAttribute("userName");
+	String userEmail=(String)session.getAttribute("userEmail");
+	String userPhone=(String)session.getAttribute("userPhone");
+	String userQuestion=(String)session.getAttribute("UserQuestion");
+	String userAnswer=(String)session.getAttribute("userAnswer");
+	String userGender=(String)session.getAttribute("userGender");
+	String userBirth=(String)session.getAttribute("userBirth");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +20,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>로그인후 메인페이지</title>
+  <title>회원정보 상세</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,7 +53,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="mainA.do">
           3S
           <span>메인 화면</span></a>
@@ -306,11 +315,11 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="mpa1.do">
-                  <i class="fas fa-user-check fa-fw mr-2 text-gray-400"></i>
+                <a class="dropdown-item" href="mp1.do"style="color: blue;">
+                  <i class="fas fa-user-check fa-fw mr-2 text-gray-400"style="color: blue!important;"></i>
                   	회원정보 상세
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="mp2.do">
                   <i class="fas fa-user-edit fa-fw mr-2 text-gray-400"></i>
                   	회원정보 수정
                 </a>
@@ -333,6 +342,68 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+			<div style="font-size: 2rem; font-weight: bold;">회원정보 상세</div>
+			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top: 15%;">
+			<div class="form-group" 
+					style="margin-left: 10%;margin-bottom: 3%;">
+                		이름
+                </div>
+			<div class="form-group">
+                	<input type="text" class="form-control form-control-user" id="name" name="userName" placeholder="<%=userName%>" readonly
+                			style="font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;">
+                </div>
+                <div class="form-group" 
+					style="margin-left: 10%;margin-bottom: 3%;">
+                		휴대폰 번호
+                </div>
+                <div class="form-group">
+                	<input type="text" class="form-control form-control-user pch" id="phone" name="userPhone" placeholder="<%=userPhone%>" readonly
+                			style="font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;">
+                </div>
+                <div class="form-group" 
+					style="margin-left: 10%;margin-bottom: 3%;">
+                		이메일 주소
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="email" name="userEmail" placeholder="<%=userEmail%>" readonly
+                  			style="font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;">
+                </div>
+          
+                <div class="form-group" 
+					style="margin-left: 10%;margin-bottom: 3%;">
+                		생년월일
+                </div>
+                <div class="form-group">
+                	<input type="date" class="form-control form-control-user" id="birth" name="userBirth" value="<%=userBirth%>"readonly>
+                </div>
+                	<div style="display:flex">
+                	<div class="form-group" 
+					style="margin-left: 10%;margin-top: 8%;">
+                		성별
+                </div>
+               		<input type="text" class="form-control form-control-user" id="" name="userGender" placeholder="<%=userGender%>" readonly
+                    		style="text-align:center; width:30%;font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;margin-bottom:7%;margin-left:20%">
+               		</div>
+             
+                <div class="form-group row">
+                <div class="form-group" 
+					style="margin-left: 10%;margin-bottom: 3%;">
+                		비밀번호 찾기 문제
+                </div>
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="pwq" name="userQuestion" placeholder="<%=userQuestion %>" readonly
+                    		style="font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;">
+                  </div>
+                  <div class="form-group" 
+					style="margin-left: 10%;margin-bottom: 3%;">
+                		비밀번호 찾기 답
+                </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-user" id="pwa" name="userAnswer" placeholder="<%=userAnswer%>" readonly
+                    		style="font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;">
+                  </div>
+                </div></div>
+			
 			
         </div>
         <!-- /.container-fluid -->
@@ -361,7 +432,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!--로그아웃 창-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -373,13 +444,13 @@
         </div>
         <div class="modal-body">"로그아웃" 버튼을 누르셨습니다. 로그아웃을 하시려면 로그아웃 버튼을 눌러주세요.</div>
         <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
           <button class="btn btn-primary" type="button" onclick="location.href='/logout.do'">로그아웃</button>
         </div>
       </div>
     </div>
   </div>
-  
-    <!--회원 탈퇴 창-->
+ <!--회원 탈퇴 창-->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -397,7 +468,6 @@
       </div>
     </div>
   </div>
-
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -407,7 +477,12 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-
+<script>
+	function logout() {
+		alert("로그아웃 성공하였습니다.");
+		location.href="/logout.do"
+	}
+</script>
 
 
 </body>

@@ -36,7 +36,12 @@
 SELECT
 	USR_SEQ_NO AS userSeq,
 	USR_EMAIL_ADDR AS userEmail,
-	USR_NAME AS userName
+	USR_NAME AS userName,
+	BIRTH AS userBirth,
+	GENDER AS userGender,
+	PHONE_NUM AS userPhone,
+	USR_QUESTION AS userQuestion,
+	USR_ANSWER AS userAnswer
 FROM USER_INFO
 WHERE USR_EMAIL_ADDR = #{userEmail} AND PASSWORD = #{userPassword}
 </select>
@@ -117,4 +122,11 @@ FROM
 WHERE
 	USR_EMAIL_ADDR=#{userEmail}
 </select>
+<delete id="userDelete" parameterType="UserDTO">
+DELETE
+FROM
+	USER_INFO
+WHERE
+	USR_EMAIL_ADDR=#{userEmail}
+</delete>
 </mapper>

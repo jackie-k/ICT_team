@@ -86,6 +86,14 @@ public class UserService implements IUserService {
 		return userMapper.eCheck(email);
 	}
 
+	@Override
+	public int userDelete(UserDTO uDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.userDelete(uDTO);
+	}
+
+	
+
 
 
 }

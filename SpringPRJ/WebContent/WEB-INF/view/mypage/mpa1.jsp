@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>로그인후 메인페이지</title>
+  <title>회원정보 상세</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,7 +44,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="mainA.do">
           3S
           <span>메인 화면</span></a>
@@ -306,15 +306,15 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="mpa1.do">
-                  <i class="fas fa-user-check fa-fw mr-2 text-gray-400"></i>
+                <a class="dropdown-item" href="mp1.do"style="color: blue;">
+                  <i class="fas fa-user-check fa-fw mr-2 text-gray-400"style="color: blue!important;"></i>
                   	회원정보 상세
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="mp2.do">
                   <i class="fas fa-user-edit fa-fw mr-2 text-gray-400"></i>
                   	회원정보 수정
                 </a>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteModal">
+ 				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteModal">
                   <i class="fas fa-user-times fa-fw mr-2 text-gray-400"></i>
                   	회원 탈퇴
                 </a>
@@ -333,6 +333,16 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+			<div style="font-size: 2rem; font-weight: bold;">회원정보 상세</div>
+			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top: 45%;">회원님의 정보 보안을 위해서 비밀번호를 입력해주시기 바랍니다.</div>
+			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top:25%;">
+              <form method="POST" class="user" action="/mpaproc.do">
+               <input type="password" class="form-control form-control-user" id="pw" name="userPassword" placeholder="비밀번호" 
+               			style="font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;">
+               <input type="submit" class="btn btn-primary btn-user btn-block" value="다음"
+               			style="margin-top: 7%;font-size: .8rem;border-radius: 10rem;padding: 0.907rem;">          
+              </form>
+            </div>
 			
         </div>
         <!-- /.container-fluid -->
@@ -361,7 +371,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!--로그아웃 창-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -373,13 +383,14 @@
         </div>
         <div class="modal-body">"로그아웃" 버튼을 누르셨습니다. 로그아웃을 하시려면 로그아웃 버튼을 눌러주세요.</div>
         <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
           <button class="btn btn-primary" type="button" onclick="location.href='/logout.do'">로그아웃</button>
         </div>
       </div>
     </div>
   </div>
-  
-    <!--회원 탈퇴 창-->
+
+ <!--회원 탈퇴 창-->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -397,7 +408,6 @@
       </div>
     </div>
   </div>
-
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -407,7 +417,12 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-
+<script>
+	function logout() {
+		alert("로그아웃 성공하였습니다.");
+		location.href="/logout.do"
+	}
+</script>
 
 
 </body>

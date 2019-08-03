@@ -30,6 +30,10 @@ public interface UserMapper {
 
 	int eCheck(String email)throws Exception;
 
+	int userDelete(UserDTO uDTO)throws Exception;
+
+
+
 	
 
 }
