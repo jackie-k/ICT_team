@@ -92,6 +92,30 @@ public class UserService implements IUserService {
 		return userMapper.userDelete(uDTO);
 	}
 
+	@Override
+	public int Nac(UserDTO uDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.Nac(uDTO);
+	}
+
+	@Override
+	public int Phc(UserDTO uDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.Phc(uDTO);
+	}
+
+	@Override
+	public int Pwc(UserDTO uDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.Pwc(uDTO);
+	}
+
+	@Override
+	public int Qac(UserDTO uDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.Qac(uDTO);
+	}
+
 	
 
 

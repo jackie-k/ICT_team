@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>로그인후 메인페이지</title>
+  <title>회원정보 수정</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,7 +45,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="mainA.do">
           3S
           <span>메인 화면</span></a>
@@ -310,8 +311,8 @@
                   <i class="fas fa-user-check fa-fw mr-2 text-gray-400"></i>
                   	회원정보 상세
                 </a>
-                <a class="dropdown-item" href="mpb1.do">
-                  <i class="fas fa-user-edit fa-fw mr-2 text-gray-400"></i>
+                <a class="dropdown-item" href="mpb1.do"style="color: blue;">
+                  <i class="fas fa-user-edit fa-fw mr-2 text-gray-400"style="color: blue!important;"></i>
                   	회원정보 수정
                 </a>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteModal">
@@ -333,6 +334,33 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+			<div style="font-size: 2rem; font-weight: bold;">회원정보 수정</div>
+			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top: 15%;">
+			<div class="form-group" 
+					style="margin-left: 10%;margin-bottom: 9%;">
+                		<a href="/NAC.do"style="color: #858796;text-decoration: none;">
+                		이름 변경</a>
+                </div>
+			
+                <div class="form-group" 
+					style="margin-left: 10%;margin-bottom: 9%;">
+                		<a href="/PHC.do"style="color: #858796;text-decoration: none;">
+                		휴대폰 번호 변경</a>
+                </div>
+       
+                <div class="form-group" 
+					style="margin-left: 10%;margin-bottom: 9%;">
+                		<a href="/PWC.do"style="color: #858796;text-decoration: none;">
+                		비밀번호 변경</a>
+                </div>
+               
+                <div class="form-group" 
+					style="margin-left: 10%;">
+						<a href="/QAC.do"style="color: #858796;text-decoration: none;">
+                		비밀번호 찾기 문제&답 변경</a>
+                </div>
+                
+                </div>
 			
         </div>
         <!-- /.container-fluid -->
@@ -361,7 +389,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!--로그아웃 창-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -373,13 +401,13 @@
         </div>
         <div class="modal-body">"로그아웃" 버튼을 누르셨습니다. 로그아웃을 하시려면 로그아웃 버튼을 눌러주세요.</div>
         <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
           <button class="btn btn-primary" type="button" onclick="location.href='/logout.do'">로그아웃</button>
         </div>
       </div>
     </div>
   </div>
-  
-    <!--회원 탈퇴 창-->
+ <!--회원 탈퇴 창-->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -397,7 +425,6 @@
       </div>
     </div>
   </div>
-
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

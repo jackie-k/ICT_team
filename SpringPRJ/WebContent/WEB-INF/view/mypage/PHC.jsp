@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String userPhone=(String)session.getAttribute("userPhone");
+	String userName=(String)session.getAttribute("userName");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +15,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>로그인후 메인페이지</title>
+  <title>휴대폰 번호 변경</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,7 +48,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="mainA.do">
           3S
           <span>메인 화면</span></a>
@@ -310,11 +314,11 @@
                   <i class="fas fa-user-check fa-fw mr-2 text-gray-400"></i>
                   	회원정보 상세
                 </a>
-                <a class="dropdown-item" href="mpb1.do">
-                  <i class="fas fa-user-edit fa-fw mr-2 text-gray-400"></i>
+                <a class="dropdown-item" href="mpb1.do"style="color: blue;">
+                  <i class="fas fa-user-edit fa-fw mr-2 text-gray-400"style="color: blue!important;"></i>
                   	회원정보 수정
                 </a>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteModal">
+ 				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteModal">
                   <i class="fas fa-user-times fa-fw mr-2 text-gray-400"></i>
                   	회원 탈퇴
                 </a>
@@ -333,6 +337,18 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+			<div style="font-size: 2rem; font-weight: bold;">휴대폰 번호 변경</div>
+			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top: 45%;">새롭게 사용하실 휴대폰 번호를 입력해 주세요.</div>
+			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top:25%;">
+              <form method="POST" class="user" action="/Phcproc.do">
+              <div class="form-group row">
+               <input type="text" class="form-control form-control-user" id="phone" name="userPhone" placeholder="<%=userPhone %>" style="margin-bottom:7%;">
+               <input type="button" class="btn btn-primary btn-user btn-block" value="휴대폰 번호 중복확인" id="pCheck">
+               			
+               <input type="hidden" class="btn btn-primary btn-user btn-block" value="휴대폰 번호 변경" id="PH">			          
+              </div>
+              </form>
+            </div>
 			
         </div>
         <!-- /.container-fluid -->
@@ -361,7 +377,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!--로그아웃 창-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -373,13 +389,14 @@
         </div>
         <div class="modal-body">"로그아웃" 버튼을 누르셨습니다. 로그아웃을 하시려면 로그아웃 버튼을 눌러주세요.</div>
         <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
           <button class="btn btn-primary" type="button" onclick="location.href='/logout.do'">로그아웃</button>
         </div>
       </div>
     </div>
   </div>
-  
-    <!--회원 탈퇴 창-->
+
+ <!--회원 탈퇴 창-->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -397,7 +414,6 @@
       </div>
     </div>
   </div>
-
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -407,7 +423,52 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+<script>
 
+$(function(){
+	
+	$("#pCheck").click(function(){
+		var phone=$("#phone").val();
+		var re1=/^[0-9]{10,11}$/
+		var userPhone=<%=userPhone%>;
+		
+		console.log(phone);
+		if(phone==""){
+			alert("새롭게 사용하실 휴대폰 번호를 입력해 주세요.");
+			$("#phone").focus();
+		}else{
+		$.ajax({
+			url : "/pCheck.do",
+			type : 'POST',
+			data : {'phone':phone},
+			success : function(data){
+				console.log(data);
+				if(!re1.test(phone)) {
+					alert("휴대폰 번호 형식을 확인해주세요.");
+					$("#phone").focus();
+				}else if(phone==userPhone) {
+						alert("이미 <%=userName%>님(본인)이 사용중인 번호 입니다.");
+						$('#conf').val("0");
+						$("#phone").focus();
+			    }else if(data == 0){
+						alert("사용 가능한 휴대폰 번호 입니다.");
+						$('#conf').val("1");
+						$('#PH').attr('type','submit')
+				}else{
+						alert("이미 사용중인 휴대폰 번호 입니다.");
+						$('#conf').val("0");
+						$("#phone").focus();
+						}
+					}
+				,
+			error : function(error){
+					alert("error : " + error);
+			}
+		});
+		}});
+});
+
+</script>
 
 
 </body>

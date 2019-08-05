@@ -41,7 +41,8 @@ SELECT
 	GENDER AS userGender,
 	PHONE_NUM AS userPhone,
 	USR_QUESTION AS userQuestion,
-	USR_ANSWER AS userAnswer
+	USR_ANSWER AS userAnswer,
+	PASSWORD AS userPassword
 FROM USER_INFO
 WHERE USR_EMAIL_ADDR = #{userEmail} AND PASSWORD = #{userPassword}
 </select>
@@ -129,4 +130,37 @@ FROM
 WHERE
 	USR_EMAIL_ADDR=#{userEmail}
 </delete>
+<update id="Nac" parameterType="UserDTO">
+UPDATE
+	USER_INFO
+SET
+	USR_NAME = #{userName}
+WHERE
+	USR_EMAIL_ADDR = #{userEmail}
+</update>
+<update id="Phc" parameterType="UserDTO">
+UPDATE
+	USER_INFO
+SET
+	PHONE_NUM = #{userPhone}
+WHERE
+	USR_EMAIL_ADDR = #{userEmail}
+</update>
+<update id="Pwc" parameterType="UserDTO">
+UPDATE
+	USER_INFO
+SET
+	PASSWORD = #{userPassword}
+WHERE
+	USR_EMAIL_ADDR = #{userEmail}
+</update>
+<update id="Qac" parameterType="UserDTO">
+UPDATE
+	USER_INFO
+SET
+		USR_QUESTION = #{userQuestion},
+		USR_ANSWER = #{userAnswer}
+WHERE
+	USR_EMAIL_ADDR = #{userEmail}
+</update>
 </mapper>

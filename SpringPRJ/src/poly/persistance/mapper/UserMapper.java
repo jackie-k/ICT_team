@@ -32,6 +32,14 @@ public interface UserMapper {
 
 	int userDelete(UserDTO uDTO)throws Exception;
 
+	int Nac(UserDTO uDTO) throws Exception;
+
+	int Phc(UserDTO uDTO) throws Exception;
+
+	int Pwc(UserDTO uDTO) throws Exception;
+
+	int Qac(UserDTO uDTO) throws Exception;
+
 
 
 	

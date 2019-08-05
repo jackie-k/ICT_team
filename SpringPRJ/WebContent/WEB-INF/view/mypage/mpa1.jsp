@@ -119,7 +119,7 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>최근 날짜순</span>
         </a>
-        <div id="recent" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="top: -50%;">
+        <div id="recent" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h3 class="collapse-header">●</h3>
             <a class="collapse-item" href="">소득 내역</a>
@@ -306,11 +306,11 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="mp1.do"style="color: blue;">
+                <a class="dropdown-item" href="mpa1.do"style="color: blue;">
                   <i class="fas fa-user-check fa-fw mr-2 text-gray-400"style="color: blue!important;"></i>
                   	회원정보 상세
                 </a>
-                <a class="dropdown-item" href="mp2.do">
+                <a class="dropdown-item" href="mpb1.do">
                   <i class="fas fa-user-edit fa-fw mr-2 text-gray-400"></i>
                   	회원정보 수정
                 </a>
@@ -334,7 +334,7 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 			<div style="font-size: 2rem; font-weight: bold;">회원정보 상세</div>
-			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top: 45%;">회원님의 정보 보안을 위해서 비밀번호를 입력해주시기 바랍니다.</div>
+			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top: 45%;">회원님의 정보 보안을 위해서 비밀번호를 입력해 주세요.</div>
 			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top:25%;">
               <form method="POST" class="user" action="/mpaproc.do">
                <input type="password" class="form-control form-control-user" id="pw" name="userPassword" placeholder="비밀번호" 
@@ -417,12 +417,7 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-<script>
-	function logout() {
-		alert("로그아웃 성공하였습니다.");
-		location.href="/logout.do"
-	}
-</script>
+
 
 
 </body>

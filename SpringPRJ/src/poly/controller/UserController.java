@@ -116,10 +116,11 @@ public class UserController {
 			 session.setAttribute("userEmail", uDTO.getUserEmail());
 			 session.setAttribute("userName", uDTO.getUserName());
 			 session.setAttribute("userPhone", uDTO.getUserPhone());
-			 session.setAttribute("UserQuestion", uDTO.getUserQuestion());
+			 session.setAttribute("userQuestion", uDTO.getUserQuestion());
 			 session.setAttribute("userAnswer", uDTO.getUserAnswer());
 			 session.setAttribute("userGender", uDTO.getUserGender());
 			 session.setAttribute("userBirth", uDTO.getUserBirth());
+			 session.setAttribute("userPassword", uDTO.getUserPassword());
 			 
 			 log.info(" session : " + session);
 			 
@@ -302,7 +303,7 @@ public class UserController {
 		  return "redirect"; 
 	  }
 	  @RequestMapping(value="/mpaproc")
-	  public String mp1proc (HttpServletRequest request, Model model, HttpSession session) throws Exception{
+	  public String mpa1proc (HttpServletRequest request, Model model, HttpSession session) throws Exception{
 		  String userPassword=request.getParameter("userPassword");
 		  String userEmail=(String)session.getAttribute("userEmail");
 		  
@@ -329,7 +330,34 @@ public class UserController {
 			 model.addAttribute("url",url);
 			 return "redirect";	
 	  }
-	  
+	  @RequestMapping(value="/mpbproc")
+	  public String mpb1proc (HttpServletRequest request, Model model, HttpSession session) throws Exception{
+		  String userPassword=request.getParameter("userPassword");
+		  String userEmail=(String)session.getAttribute("userEmail");
+		  
+		  log.info("userPassword 확인: "+userPassword);
+		  log.info("userEmail 확인: "+userEmail);
+		  
+		  UserDTO uDTO=new UserDTO();
+		  uDTO.setUserPassword(userPassword);
+		  uDTO.setUserEmail(userEmail);
+		  
+		  uDTO = userservice.getUserInfo(uDTO);
+			 
+			 String msg,url;
+			 if(uDTO==null) {
+				 msg="비밀번호가 옳지 않습니다.";
+				 url="/mpb1.do";
+			 }else { 
+				 msg="회원정보 수정 페이지로 넘어갑니다.";
+				 url="/mpb2.do";
+				 
+			 }
+			 
+			 model.addAttribute("msg",msg);
+			 model.addAttribute("url",url);
+			 return "redirect";	
+	  }
 	  @RequestMapping(value="question", method=RequestMethod.GET)
 	  public String question (HttpServletRequest request, HttpServletResponse response, ModelMap
 	  model) throws Exception {
@@ -358,4 +386,155 @@ public class UserController {
 		public String mpa2() throws Exception{
 			return "/mypage/mpa2";
 		}
+	  @RequestMapping(value="/mpb1")
+	  public String mpb1() throws Exception{
+		  return "/mypage/mpb1";
+	  }
+	  @RequestMapping(value="/mpb2")
+	  public String mpb2() throws Exception{
+		  return "/mypage/mpb2";
+	  }
+	  @RequestMapping(value="/NAC")
+	  public String NAC() throws Exception{
+		  return "/mypage/NAC";
+	  }
+	  @RequestMapping(value="Nacproc")
+	  public String Nacproc(HttpServletRequest request,Model model,HttpSession session) throws Exception{
+		  String userName = request.getParameter("userName");
+		  String userEmail=(String) session.getAttribute("userEmail");
+		  String username=(String) session.getAttribute("userName");
+		  log.info("userName 확인: "+userName);
+		  log.info("userEmail 확인: "+userEmail);
+		  log.info("username 확인: "+username);
+		  String msg,url;
+		  if(username.equals(userName)) {
+			msg="회원님(본인)이  이미 사용중인 이름입니다.";
+			url="/NAC.do";
+		  }else {
+		  
+		  UserDTO uDTO=new UserDTO();
+		  uDTO.setUserName(userName);
+		  uDTO.setUserEmail(userEmail);
+		  
+		  int result=0;
+		  result = userservice.Nac(uDTO);
+			 
+			 if(result==1) {
+				 msg="이름이 변경되었습니다.";
+				 url="/mpb2.do";
+				 session.setAttribute("userName", uDTO.getUserName());
+				 log.info("userName 확인: "+session.getAttribute("userName"));
+			 }else { 
+				 msg="이름 변경이 실패하였습니다.";
+				 url="/NAC.do";
+			 }}
+			 model.addAttribute("msg",msg);
+			 model.addAttribute("url",url);
+			 return "redirect";	
+	  }
+	  
+	  @RequestMapping(value="/PHC")
+	  public String PHC() throws Exception{
+		  return "/mypage/PHC";
+	  }
+	  @RequestMapping(value="Phcproc")
+	  public String Phcproc(HttpServletRequest request,Model model,HttpSession session) throws Exception{
+		  String userPhone = request.getParameter("userPhone");
+		  String userEmail=(String) session.getAttribute("userEmail");
+		  log.info("userPhone 확인: "+userPhone);
+		  log.info("userEmail 확인: "+userEmail);
+		  String msg,url;
+		  
+		  
+		  UserDTO uDTO=new UserDTO();
+		  uDTO.setUserPhone(userPhone);
+		  uDTO.setUserEmail(userEmail);
+		  
+		  int result=0;
+		  result = userservice.Phc(uDTO);
+			 
+			 if(result==1) {
+				 msg="휴대폰 번호가 변경되었습니다.";
+				 url="/mpb2.do";
+				 session.setAttribute("userPhone", uDTO.getUserPhone());
+				 log.info("userPhone 확인: "+session.getAttribute("userPhone"));
+			 }else { 
+				 msg="휴대폰 번호 변경이 실패하였습니다.";
+				 url="/PHC.do";
+			 }
+			 model.addAttribute("msg",msg);
+			 model.addAttribute("url",url);
+			 return "redirect";	
+	  }
+	  @RequestMapping(value="/PWC")
+	  public String PWC() throws Exception{
+		  return "/mypage/PWC";
+	  }
+	  @RequestMapping(value="Pwcproc")
+	  public String Pwcproc(HttpServletRequest request,Model model,HttpSession session) throws Exception{
+		  String userPassword = request.getParameter("userPassword");
+		  String userEmail=(String) session.getAttribute("userEmail");
+	
+		  log.info("userEmail 확인: "+userEmail);
+		  log.info("userPassword 확인: "+userPassword);
+		  String msg,url;
+		  
+		  
+		  UserDTO uDTO=new UserDTO();
+		  uDTO.setUserPassword(userPassword);
+		  uDTO.setUserEmail(userEmail);
+		  
+		  int result=0;
+		  result = userservice.Pwc(uDTO);
+			 
+			 if(result==1) {
+				 msg="비밀번호가 변경되었습니다.";
+				 url="/mpb2.do";
+				 session.setAttribute("userPassword", uDTO.getUserPassword());
+				 log.info("userPassword 확인: "+session.getAttribute("userPassword"));
+			 }else { 
+				 msg="비밀번호 변경이 실패하였습니다.";
+				 url="/PWC.do";
+			 }
+			 model.addAttribute("msg",msg);
+			 model.addAttribute("url",url);
+			 return "redirect";	
+	  }
+	  @RequestMapping(value="/QAC")
+	  public String QAC() throws Exception{
+		  return "/mypage/QAC";
+	  }
+	  @RequestMapping(value="Qacproc")
+	  public String Qacproc(HttpServletRequest request,Model model,HttpSession session) throws Exception{
+		  String userQuestion = request.getParameter("userQuestion");
+		  String userAnswer = request.getParameter("userAnswer");
+		  String userEmail=(String) session.getAttribute("userEmail");
+	
+		  log.info("userQuestion 확인: "+userQuestion);
+		  log.info("userAnswer 확인: "+userAnswer);
+		  String msg,url;
+		  
+		  
+		  UserDTO uDTO=new UserDTO();
+		  uDTO.setUserQuestion(userQuestion);
+		  uDTO.setUserAnswer(userAnswer);
+		  uDTO.setUserEmail(userEmail);
+		  
+		  int result=0;
+		  result = userservice.Qac(uDTO);
+			 
+			 if(result==1) {
+				 msg="비밀번호 찾기 문제와 답이 변경되었습니다.";
+				 url="/mpb2.do";
+				 session.setAttribute("userQuestion", uDTO.getUserQuestion());
+				 session.setAttribute("userAnswer", uDTO.getUserAnswer());
+
+			 }else { 
+				 msg="비밀번호 찾기 문제와 답 변경이 실패하였습니다.";
+				 url="/QAC.do";
+			 }
+			 model.addAttribute("msg",msg);
+			 model.addAttribute("url",url);
+			 return "redirect";	
+	  }
 }

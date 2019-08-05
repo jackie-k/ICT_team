@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String userQuestion=(String)session.getAttribute("userQuestion");
+	String userAnswer=(String)session.getAttribute("userAnswer");
+	String userName=(String)session.getAttribute("userName");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>로그인후 메인페이지</title>
+  <title>비밀번호 찾기 문제&답 변경</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,7 +49,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="mainA.do">
           3S
           <span>메인 화면</span></a>
@@ -310,11 +315,11 @@
                   <i class="fas fa-user-check fa-fw mr-2 text-gray-400"></i>
                   	회원정보 상세
                 </a>
-                <a class="dropdown-item" href="mpb1.do">
-                  <i class="fas fa-user-edit fa-fw mr-2 text-gray-400"></i>
+                <a class="dropdown-item" href="mpb1.do"style="color: blue;">
+                  <i class="fas fa-user-edit fa-fw mr-2 text-gray-400"style="color: blue!important;"></i>
                   	회원정보 수정
                 </a>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteModal">
+ 				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteModal">
                   <i class="fas fa-user-times fa-fw mr-2 text-gray-400"></i>
                   	회원 탈퇴
                 </a>
@@ -333,6 +338,17 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+			<div style="font-size: 2rem; font-weight: bold;">비밀번호 찾기 문제&답 변경</div>
+			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top: 45%;">새롭게 사용하실 비밀번호 찾기 문제와 답을 입력해 주세요.</div>
+			<div class="col-sm-6 mb-3 mb-sm-0" style="margin-top:25%;">
+              <form method="POST" class="user" action="/Qacproc.do"onsubmit="return QAC();">
+               <div class="form-group row">
+               <input type="text" class="form-control form-control-user" id="question" name="userQuestion" placeholder="<%=userQuestion %>"style="margin-bottom:7%">
+               <input type="text" class="form-control form-control-user" id="answer" name="userAnswer" placeholder="<%=userAnswer %>"style="margin-bottom:7%">			
+               <input type="submit" class="btn btn-primary btn-user btn-block" value="비밀번호 찾기 문제&답 변경">          
+               </div>
+              </form>
+            </div>
 			
         </div>
         <!-- /.container-fluid -->
@@ -361,7 +377,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!--로그아웃 창-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -373,13 +389,14 @@
         </div>
         <div class="modal-body">"로그아웃" 버튼을 누르셨습니다. 로그아웃을 하시려면 로그아웃 버튼을 눌러주세요.</div>
         <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
           <button class="btn btn-primary" type="button" onclick="location.href='/logout.do'">로그아웃</button>
         </div>
       </div>
     </div>
   </div>
-  
-    <!--회원 탈퇴 창-->
+
+ <!--회원 탈퇴 창-->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -397,7 +414,6 @@
       </div>
     </div>
   </div>
-
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -407,9 +423,26 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-
-
-
+<script>
+	function QAC(){
+		var question=$("#question").val();
+		var answer=$("#answer").val();
+		var Q="<%=userQuestion%>";
+		if(question==""){
+			alert("새롭게 사용하실 비밀번호 찾기 문제를 입력해 주세요.");
+			$("#question").focus();
+			return false;
+		}else if(question==Q){
+			alert("<%=userName%>님(본인)이 이미 사용중인 비밀번호 찾기 문제입니다.");
+			$("#question").focus();
+			return false;
+		}else if(answer==""){
+			alert("새롭게 사용하실 비밀번호 찾기 답을 입력해 주세요.");
+			$("#answer").focus();
+			return false;
+		}
+	}
+</script>
 </body>
 
 </html>

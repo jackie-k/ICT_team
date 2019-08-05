@@ -260,6 +260,7 @@ function pwCheck(){
 				name.focus();
 				return false;
 			}
+		 	
 			if(phone.value==""){
 				alert("휴대폰 번호를 입력해 주세요.")
 				phone.focus();

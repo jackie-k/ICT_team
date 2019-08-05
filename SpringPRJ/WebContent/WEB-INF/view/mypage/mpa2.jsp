@@ -4,7 +4,7 @@
 	String userName=(String)session.getAttribute("userName");
 	String userEmail=(String)session.getAttribute("userEmail");
 	String userPhone=(String)session.getAttribute("userPhone");
-	String userQuestion=(String)session.getAttribute("UserQuestion");
+	String userQuestion=(String)session.getAttribute("userQuestion");
 	String userAnswer=(String)session.getAttribute("userAnswer");
 	String userGender=(String)session.getAttribute("userGender");
 	String userBirth=(String)session.getAttribute("userBirth");
@@ -128,7 +128,7 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>최근 날짜순</span>
         </a>
-        <div id="recent" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="top: -50%;">
+        <div id="recent" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h3 class="collapse-header">●</h3>
             <a class="collapse-item" href="">소득 내역</a>
@@ -315,11 +315,11 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="mp1.do"style="color: blue;">
+                <a class="dropdown-item" href="mpa1.do"style="color: blue;">
                   <i class="fas fa-user-check fa-fw mr-2 text-gray-400"style="color: blue!important;"></i>
                   	회원정보 상세
                 </a>
-                <a class="dropdown-item" href="mp2.do">
+                <a class="dropdown-item" href="mpb1.do">
                   <i class="fas fa-user-edit fa-fw mr-2 text-gray-400"></i>
                   	회원정보 수정
                 </a>
@@ -374,7 +374,8 @@
                 		생년월일
                 </div>
                 <div class="form-group">
-                	<input type="date" class="form-control form-control-user" id="birth" name="userBirth" value="<%=userBirth%>"readonly>
+                	<input type="date" class="form-control form-control-user" id="birth" name="userBirth" value="<%=userBirth%>"readonly
+                			style="font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;">
                 </div>
                 	<div style="display:flex">
                 	<div class="form-group" 
@@ -385,24 +386,24 @@
                     		style="text-align:center; width:30%;font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;margin-bottom:7%;margin-left:20%">
                		</div>
              
-                <div class="form-group row">
+               
                 <div class="form-group" 
 					style="margin-left: 10%;margin-bottom: 3%;">
                 		비밀번호 찾기 문제
                 </div>
-                  <div class="col-sm-6 mb-3 mb-sm-0">
+                  
                     <input type="text" class="form-control form-control-user" id="pwq" name="userQuestion" placeholder="<%=userQuestion %>" readonly
                     		style="font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;">
-                  </div>
+            
                   <div class="form-group" 
 					style="margin-left: 10%;margin-bottom: 3%;">
                 		비밀번호 찾기 답
                 </div>
-                  <div class="col-sm-6">
+                  
                     <input type="text" class="form-control form-control-user" id="pwa" name="userAnswer" placeholder="<%=userAnswer%>" readonly
                     		style="font-size:.8rem;border-radius: 10rem;padding: 1.5rem 1rem;">
-                  </div>
-                </div></div>
+                
+              </div>
 			
 			
         </div>
@@ -477,12 +478,7 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-<script>
-	function logout() {
-		alert("로그아웃 성공하였습니다.");
-		location.href="/logout.do"
-	}
-</script>
+
 
 
 </body>
